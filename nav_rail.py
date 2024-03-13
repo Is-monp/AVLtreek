@@ -15,8 +15,8 @@ def Navigation_rail():
             label="Add node",
         ),
         ft.NavigationRailDestination(
-            icon_content=ft.Icon(ft.icons.BOOKMARK_BORDER),
-            selected_icon_content=ft.Icon(ft.icons.BOOKMARK),
+            icon_content=ft.Icon(ft.icons.DELETE_FOREVER_OUTLINED),
+            selected_icon_content=ft.Icon(ft.icons.DELETE_FOREVER),
             label="Delete node",
         ),
         ft.NavigationRailDestination(
@@ -28,6 +28,11 @@ def Navigation_rail():
             icon=ft.icons.FILTER_ALT_OUTLINED,
             selected_icon_content=ft.Icon(ft.icons.FILTER_ALT),
             label_content=ft.Text("Filter nodes"),
+        ),
+        ft.NavigationRailDestination(
+            icon=ft.icons.SWIPE_DOWN_ALT_OUTLINED,
+            selected_icon_content=ft.Icon(ft.icons.SWIPE_DOWN_ALT),
+            label_content=ft.Text("Level order traverlsal"),
         ),
     ],
     on_change=lambda e: print("Selected destination:", e.control.selected_index)
