@@ -1,9 +1,12 @@
 import flet as ft
 from tabs import Tabs
+from visuals import Slider
 
 def main(page: ft.Page):
-    page.theme_mode = "dark"
-    t = Tabs()
+#Deficion de los componentes principales de la GUI.
+    page.theme_mode = ft.ThemeMode.LIGHT
+    tabs = Tabs()
+    this_slider=Slider(page)
     main_display=ft.Container(
         content=ft.Text("Area para mostrar cosas", size=20, color="Black"),
         margin=5,
@@ -14,7 +17,7 @@ def main(page: ft.Page):
         height=600        
     )    
     header=ft.Container(
-        content=ft.Text("Header", size=20, color="black"),
+        content=ft.Row([this_slider, ft.Text("Header", size=20, color="black")]),
         alignment=ft.alignment.center,
         bgcolor=ft.colors.GREEN_400,
         width=1400,
@@ -31,7 +34,7 @@ def main(page: ft.Page):
     SECONDARY_GUI = ft.Container(
         margin=ft.margin.only(bottom=11),
         expand=True,
-        content=ft.Column([t,galery])
+        content=ft.Column([tabs,galery])
     )
     components = ft.Container(
         margin=ft.margin.only(bottom=40),

@@ -28,7 +28,7 @@ def filter():
 def level_order():
     global y
     y = ft.Text()
-    leyenda=ft.Text("Al clickear 'sort' se generara un recorrido\npor niveles del arbol actual.", color="white")
+    leyenda=ft.Text("Al clickear 'sort' se generara un recorrido\npor niveles del arbol actual.")
     submitt_button = ft.FilledButton(text="Sort", on_click=button_clicked_bysort,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
     return ft.Column(controls=[leyenda,submitt_button, y])
     
@@ -36,7 +36,7 @@ def Tabs():
     t = ft.Tabs(
         selected_index=3,
         animation_duration=300,
-        indicator_color=ft.colors.GREEN_400, label_color=ft.colors.GREEN_200,
+        indicator_color=ft.colors.GREEN_400, label_color=ft.colors.GREEN_300,
         tabs=[
             ft.Tab(
                 content=ft.Container(
