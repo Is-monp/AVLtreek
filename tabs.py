@@ -1,22 +1,36 @@
 import flet as ft
 
-color_dropdown = ft.Dropdown(
-    width=200,
-    label="Filtro",
-    hint_text="Selecciona el filtro:",
-    options=[
-        ft.dropdown.Option("Por type "),
-        ft.dropdown.Option("Por size"),
-    ],
-)    
+async def button_clicked_byfilter(e):
+    t.value = f"Se ha filtrado por: {color_dropdown.value}"
+    await t.update_async()
+    
+async def button_clicked_bysort(e):
+    y.value = f"Se ha sorteado por niveles:"
+    await y.update_async()
 
-header=ft.Container(
-    content=ft.Text("Header", size=20, color="black"),
-    alignment=ft.alignment.center,
-    bgcolor=ft.colors.GREEN_400,
-    width=20,
-    height=20
-)
+def filter():
+    global t, color_dropdown
+    t = ft.Text()
+    submitt_button = ft.FilledButton(text="Submit", on_click=button_clicked_byfilter,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
+    color_dropdown = ft.Dropdown(
+        width=250,
+        border_color=ft.colors.GREEN_400,
+        height=55, 
+        border_radius=20,
+        hint_text="Selecciona el filtro:",
+        options=[
+            ft.dropdown.Option("Type "),
+            ft.dropdown.Option("Size"),
+        ]
+    )
+    return ft.Column(controls=[color_dropdown, submitt_button, t])
+
+def level_order():
+    global y
+    y = ft.Text()
+    leyenda=ft.Text("Al clickear 'sort' se generara un recorrido\npor niveles del arbol actual.", color="white")
+    submitt_button = ft.FilledButton(text="Sort", on_click=button_clicked_bysort,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
+    return ft.Column(controls=[leyenda,submitt_button, y])
     
 def Tabs():
     t = ft.Tabs(
@@ -47,14 +61,14 @@ def Tabs():
             ),
             ft.Tab(
                 content=ft.Container(
-                    content=ft.Column([color_dropdown]),alignment=ft.alignment.center
+                    content=filter(), alignment=ft.alignment.center, padding=ft.padding.only(top=60)
                 ), icon=ft.icons.FILTER_ALT_OUTLINED,
                 text="Filter nodes"
             ),
             
             ft.Tab(
                 content=ft.Container(
-                    content=ft.Text("This is Tab 5"), alignment=ft.alignment.center
+                    content=level_order(), alignment=ft.alignment.center,padding=ft.padding.only(top=50)
                 ),icon=ft.icons.MOVE_DOWN_ROUNDED,
                 text="Level order traversal"
                 
@@ -66,6 +80,3 @@ def Tabs():
         expand=1,)
     return t
 
-    def button_clicked(e):
-        output_text.value = f"Dropdown value is:  {color_dropdown.value}"
-        page.update()
