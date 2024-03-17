@@ -9,7 +9,7 @@ async def button_clicked_bysort(e):
     await y.update_async()
     
 async def button_clicked_bysearch(e):
-        nodo_buscado.value = f"El nodo a buscar es: {text_field.value}"
+        nodo_buscado.value = f"El nodo a buscar es: {field_search.value}"
         await nodo_buscado.update_async()
         
 async def button_clicked_bydelete(e):
@@ -21,20 +21,23 @@ async def button_clicked_bydelete(e):
 def delete_node():
     global nodo_eliminar, field_delete
     nodo_eliminar=ft.Text()
+    leyenda=ft.Text("Use el nombre del nodo para eliminarlo.")
     field_delete= ft.TextField(width=250, height=55,hint_text="¿Que nodo desea eliminar?", border_radius=20,border_color=ft.colors.GREEN_400,)
     submit_buton= ft.ElevatedButton(text="Submit", on_click=button_clicked_bydelete,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
-    return ft.Column(controls=[field_delete,submit_buton,nodo_eliminar])
+    return ft.Column(controls=[leyenda, field_delete,submit_buton,nodo_eliminar])
 
 def search_node():
-    global nodo_buscado, text_field
+    global nodo_buscado, field_search
     nodo_buscado=ft.Text()
-    text_field= ft.TextField(width=250, height=55,hint_text="¿Que nodo desea buscar?", border_radius=20,border_color=ft.colors.GREEN_400,)
+    leyenda=ft.Text("Use el nombre del nodo para buscarlo.")
+    field_search= ft.TextField(width=250, height=55,hint_text="¿Que nodo desea buscar?", border_radius=20,border_color=ft.colors.GREEN_400,)
     submit_buton= ft.ElevatedButton(text="Submit", on_click=button_clicked_bysearch,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
-    return ft.Column(controls=[text_field,submit_buton,nodo_buscado])
+    return ft.Column(controls=[leyenda, field_search,submit_buton, nodo_buscado])
 
 def filter():
     global t, color_dropdown
     t = ft.Text()
+    leyenda=ft.Text("Al clickear 'submit' se filtrará el arbol\nactual por el tipo de nodo seleccionado.")
     submitt_button = ft.FilledButton(text="Submit", on_click=button_clicked_byfilter,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
     color_dropdown = ft.Dropdown(
         width=250,
@@ -47,7 +50,7 @@ def filter():
             ft.dropdown.Option("Size"),
         ]
     )
-    return ft.Column(controls=[color_dropdown, submitt_button, t])
+    return ft.Column(controls=[leyenda,color_dropdown, submitt_button, t])
 
 def level_order():
     global y
