@@ -1,5 +1,6 @@
 import flet as ft
-
+import sys
+#funciones de comportamiento
 def theme_changed(e, page,slider):
     page.theme_mode = (
         ft.ThemeMode.DARK
@@ -11,6 +12,7 @@ def theme_changed(e, page,slider):
     )
     page.update()
 
+#Objetos de la GUI
 def Slider(page):
     slider = ft.Switch(active_color=ft.colors.BLACK,label="Light theme", on_change=lambda e: theme_changed(e, page,slider))
     return slider

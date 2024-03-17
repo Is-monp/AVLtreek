@@ -15,13 +15,16 @@ def main(page: ft.Page):
         bgcolor=ft.colors.WHITE,
         width=900,
         height=600        
-    )    
+    )  
+    
+
     header=ft.Container(
         content=ft.Row([ft.Icon(name=ft.icons.ACCOUNT_TREE_ROUNDED, color=ft.colors.GREEN_500,size=50),ft.Text("ALVTreek", weight=ft.FontWeight.BOLD,size=20),this_slider]),
         alignment=ft.alignment.center,
         width=1400,
         height=50
     )
+
     galery = ft.Container(
         content=ft.Text("Ver foto del nodo", size=10, color="Black"),
         alignment=ft.alignment.center,
