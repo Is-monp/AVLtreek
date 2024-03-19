@@ -43,6 +43,7 @@ def añadir_nodo():
     field_add= ft.TextField(width=250, height=55,hint_text="¿Que nodo desea agregar?", border_radius=20,border_color=ft.colors.GREEN_400, )
     submit_buton= ft.ElevatedButton(text="Submit", on_click=button_clicked_byadd,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
     return ft.Column(controls=[leyenda, field_add,submit_buton, nodo_añadir])
+
 def delete_node():
     global nodo_eliminar, field_delete
     nodo_eliminar=ft.Text()
