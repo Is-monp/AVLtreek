@@ -19,7 +19,7 @@ def main(page: ft.Page):
     
 
     header=ft.Container(
-        content=ft.Row([ft.Icon(name=ft.icons.ACCOUNT_TREE_ROUNDED, color=ft.colors.GREEN_500,size=50),ft.Text("ALVTreek", weight=ft.FontWeight.BOLD,size=20),this_slider]),
+        content=ft.Row([ft.Icon(name=ft.icons.ACCOUNT_TREE_ROUNDED, color=ft.colors.GREEN_500,size=50),ft.Text("ALVTrek", weight=ft.FontWeight.BOLD,size=20),this_slider]),
         alignment=ft.alignment.center,
         width=1400,
         height=50
