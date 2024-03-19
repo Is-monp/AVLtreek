@@ -15,9 +15,34 @@ async def button_clicked_bysearch(e):
 async def button_clicked_bydelete(e):
         nodo_eliminar.value = f"El nodo eliminar es: {field_delete.value}"
         await nodo_eliminar.update_async()
+async def button_clicked_byadd(e):
+        nodo_añadir.value = f"El nodo añadir es: {field_add.value}"
+        await nodo_añadir.update_async()
+    #slider
+def slider_change_start(e):
+    print(
+        f"Slider change start, values are {e.control.start_value}, {e.control.end_value}"
+    )
+
+def slider_is_changing(e):
+    print(
+        f"Slider is changing, values are {e.control.start_value}, {e.control.end_value}"
+    )
+
+def slider_change_end(e):
+    print(
+        f"Slider change end, values are {e.control.start_value}, {e.control.end_value}"
+    )
 
 
 #Contenido de las tabs
+def añadir_nodo():
+    global nodo_añadir, field_add
+    nodo_añadir=ft.Text()
+    leyenda=ft.Text("Use el nombre del nodo para agregarlo.")
+    field_add= ft.TextField(width=250, height=55,hint_text="¿Que nodo desea agregar?", border_radius=20,border_color=ft.colors.GREEN_400, )
+    submit_buton= ft.ElevatedButton(text="Submit", on_click=button_clicked_byadd,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
+    return ft.Column(controls=[leyenda, field_add,submit_buton, nodo_añadir])
 def delete_node():
     global nodo_eliminar, field_delete
     nodo_eliminar=ft.Text()
@@ -37,20 +62,38 @@ def search_node():
 def filter():
     global t, color_dropdown
     t = ft.Text()
-    leyenda=ft.Text("Al clickear 'submit' se filtrará el arbol\nactual por el tipo de nodo seleccionado.")
+    leyenda=ft.Text("Al clickear 'submit' se filtrará el arbol\nactual segun la información proporcionada.")
+    leyenda2=ft.Text("Seleccione un rango para filtrar por size")
+    range_slider = ft.RangeSlider(
+        min=0,
+        max=5000,
+        start_value=10,
+        divisions=10,
+        end_value=20,
+        inactive_color=ft.colors.GREEN_300,
+        active_color=ft.colors.GREEN_700,
+        overlay_color=ft.colors.GREEN_100,
+        label="{value}"
+    )
     submitt_button = ft.FilledButton(text="Submit", on_click=button_clicked_byfilter,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
     color_dropdown = ft.Dropdown(
         width=250,
         border_color=ft.colors.GREEN_400,
         height=55, 
         border_radius=20,
-        hint_text="Selecciona el filtro:",
+        hint_text="Selecciona el type de nodo.",
         options=[
-            ft.dropdown.Option("Type "),
-            ft.dropdown.Option("Size"),
+            ft.dropdown.Option("Bike"),   
+            ft.dropdown.Option("Car"),
+            ft.dropdown.Option("Cat"),
+            ft.dropdown.Option("Dogs"),
+            ft.dropdown.Option("Flowers"),
+            ft.dropdown.Option("Horses"),
+            ft.dropdown.Option("Human"),
         ]
+    
     )
-    return ft.Column(controls=[leyenda,color_dropdown, submitt_button, t])
+    return ft.Column(controls=[leyenda,color_dropdown,leyenda2,range_slider,submitt_button, t])
 
 def level_order():
     global y
@@ -68,7 +111,7 @@ def Tabs():
         tabs=[
             ft.Tab(
                 content=ft.Container(
-                    content=ft.Column([ft.Text("this is tab1")])
+                    content=añadir_nodo(), alignment=ft.alignment.center, padding=ft.padding.only(top=60)
                 ),
                 icon=ft.icons.ADD_CIRCLE_OUTLINED,
                 text="Add node"
@@ -89,7 +132,7 @@ def Tabs():
             ),
             ft.Tab(
                 content=ft.Container(
-                    content=filter(), alignment=ft.alignment.center, padding=ft.padding.only(top=60)
+                    content=filter(), alignment=ft.alignment.center, padding=ft.padding.only(top=10)
                 ), icon=ft.icons.FILTER_ALT_OUTLINED,
                 text="Filter nodes"
             ),

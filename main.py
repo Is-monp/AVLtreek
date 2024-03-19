@@ -34,12 +34,12 @@ def main(page: ft.Page):
     )
     
     SECONDARY_GUI = ft.Container(
-        margin=ft.margin.only(bottom=11),
+        margin=ft.margin.only(bottom=0),
         expand=True,
         content=ft.Column([tabs,galery])
     )
     components = ft.Container(
-        margin=ft.margin.only(bottom=40),
+        margin=ft.margin.only(bottom=10),
         expand=True,
         content=ft.Row([main_display, SECONDARY_GUI])
     )
