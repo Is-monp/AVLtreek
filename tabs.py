@@ -63,7 +63,7 @@ def search_node():
 def filter():
     global t, color_dropdown
     t = ft.Text()
-    leyenda=ft.Text("Al clickear 'submit' se filtrará el arbol\nactual segun la información proporcionada.")
+    leyenda=ft.Text("Al clickear 'submit' se filtrará el arbol\nactual segun la información proporcionada.\nPodrá visualizar el resultado en la parte\nizquierda de la pantalla.")
     leyenda2=ft.Text("Seleccione un rango para filtrar por size")
     range_slider = ft.RangeSlider(
         min=0,
