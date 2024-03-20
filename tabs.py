@@ -112,35 +112,34 @@ def Tabs():
         tabs=[
             ft.Tab(
                 content=ft.Container(
-                    content=añadir_nodo(), alignment=ft.alignment.center, padding=ft.padding.only(top=60)
+                    content=añadir_nodo(), alignment=ft.alignment.center, padding=ft.padding.only(top=90)
                 ),
                 icon=ft.icons.ADD_CIRCLE_OUTLINED,
                 text="Add node"
             ),
             ft.Tab(
                 content=ft.Container(
-                    content=delete_node(), alignment=ft.alignment.center, padding=ft.padding.only(top=60)
+                    content=delete_node(), alignment=ft.alignment.center, padding=ft.padding.only(top=90)
                 ),
                 icon=ft.icons.DELETE_FOREVER_OUTLINED,
                 text="Delete node"
             ),
             ft.Tab(
                 content=ft.Container(
-                    content=search_node(), alignment=ft.alignment.center, padding=ft.padding.only(top=60)
+                    content=search_node(), alignment=ft.alignment.center, padding=ft.padding.only(top=90)
                 ),
                 icon=ft.icons.SEARCH,
                 text="Search node"
             ),
             ft.Tab(
                 content=ft.Container(
-                    content=filter(), alignment=ft.alignment.center, padding=ft.padding.only(top=10)
+                    content=filter(), alignment=ft.alignment.center, padding=ft.padding.only(top=50)
                 ), icon=ft.icons.FILTER_ALT_OUTLINED,
                 text="Filter nodes"
             ),
-            
             ft.Tab(
                 content=ft.Container(
-                    content=level_order(), alignment=ft.alignment.center,padding=ft.padding.only(top=50)
+                    content=level_order(), alignment=ft.alignment.center,padding=ft.padding.only(top=90)
                 ),icon=ft.icons.MOVE_DOWN_ROUNDED,
                 text="Level order traversal"
                 
