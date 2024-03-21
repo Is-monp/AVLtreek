@@ -1,5 +1,5 @@
 import flet as ft
-from tabs import Tabs
+from tabs import Tabs, get_Nodoabuscar
 from visuals import Slider, images_slider
 
 def main(page: ft.Page):

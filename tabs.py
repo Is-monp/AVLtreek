@@ -34,7 +34,6 @@ def slider_change_end(e):
         f"Slider change end, values are {e.control.start_value}, {e.control.end_value}"
     )
 
-
 #Contenido de las tabs
 def añadir_nodo():
     global nodo_añadir, field_add
@@ -61,7 +60,7 @@ def search_node():
     return ft.Column(controls=[leyenda, field_search,submit_buton, nodo_buscado])
 
 def filter():
-    global t, color_dropdown
+    global t, color_dropdown, range_slider
     t = ft.Text()
     leyenda=ft.Text("Al clickear 'submit' se filtrará el arbol\nactual segun la información proporcionada.\nPodrá visualizar el resultado en la parte\nizquierda de la pantalla.")
     leyenda2=ft.Text("Seleccione un rango para filtrar por size")
@@ -103,6 +102,25 @@ def level_order():
     submitt_button = ft.FilledButton(text="Sort", on_click=button_clicked_bysort,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
     return ft.Column(controls=[leyenda,submitt_button, y])
 
+#info
+def get_Nodoabuscar():
+    return field_search.value
+
+def get_Nodoaeliminar():
+    return field_delete.value
+
+def get_Nodoaagregar():
+    return field_add.value
+
+def get_filter():
+    return color_dropdown.value
+
+def get_startrange():
+    return range_slider.start_value
+
+def get_endrange():
+    return range_slider.end_value
+
 #Definicion de las tabs
 def Tabs():
     t = ft.Tabs(
@@ -133,7 +151,7 @@ def Tabs():
             ),
             ft.Tab(
                 content=ft.Container(
-                    content=filter(), alignment=ft.alignment.center, padding=ft.padding.only(top=50)
+                    content=filter(), alignment=ft.alignment.center, padding=ft.padding.only(top=30)
                 ), icon=ft.icons.FILTER_ALT_OUTLINED,
                 text="Filter nodes"
             ),
