@@ -2,7 +2,6 @@ import flet as ft
 from tabs import Tabs
 from visuals import Slider, images_slider
 
-
 def main(page: ft.Page):
 #Deficion de los componentes principales de la GUI.
     page.theme_mode = ft.ThemeMode.LIGHT

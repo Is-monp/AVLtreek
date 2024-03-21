@@ -1,6 +1,8 @@
 import flet as ft
 from avl import AVLTree
 from visuals import tree_display
+from prettytable import PrettyTable
+import os
 global myTree
 myTree=AVLTree()
 global root
@@ -10,12 +12,25 @@ def addNode(key):
     global myTree
     root= myTree.insert(root, key)
     myTree.printLevelOrder(root)
+    
+def createTable(listOfLists):
+    x = PrettyTable()
+    x.field_names = ["Name", "Level", "Balance", "Father", "Grandfather", "Uncle"]
+    for i in listOfLists:
+        x.add_row(i)
+    return x
+
+def exportTable(table):
+    with open('table.txt', 'w') as file:
+        file.write(str(table))
+
 #funciones de estado.
 async def button_clicked_byfilter(e):
     minValue=get_startrange()
     maxValue=get_endrange()
     typo=get_filter()
-    t= myTree.getInfos(minValue,maxValue,typo)
+    exportTable(createTable(myTree.getInfos(root, minValue, maxValue, typo)))
+    t=ft.Text()
     await t.update_async()
     
 async def button_clicked_bysort(e):
@@ -23,7 +38,15 @@ async def button_clicked_bysort(e):
     await y.update_async()
     
 async def button_clicked_bysearch(e):
-        nodo_buscado.value = f"El nodo a buscar es: {field_search.value}"
+        nodo_buscado.value =myTree.getInfo(root, myTree.search(root, field_search.value))
+        nodo_buscado.value={
+            "name":nodo_buscado.value[0],
+            "level":nodo_buscado.value[1],
+            "balance":nodo_buscado.value[2],
+            "father":nodo_buscado.value[3],
+            "grandfather":nodo_buscado.value[4],
+            "uncle":nodo_buscado.value[5],
+        }
         await nodo_buscado.update_async()
         
 async def button_clicked_bydelete(e):
@@ -37,10 +60,12 @@ async def button_clicked_byadd(e):
         await nodo_añadir.update_async()
         
 def button_clickedbyview(e):
-    #generar vista del arbol
+    # Open ./output.png
+    os.system("open ./output.png")
     pass
 def button_clicked_table(e):
-    #gebenerar tabla con contenido del filtro
+    # Open ./table.txt
+    os.system("open ./table.txt")
     pass
 
     #slider

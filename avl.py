@@ -264,12 +264,6 @@ class AVLTree:
         fileRoute=f"./data/{masterFolder}/{fileName}.{extension}"
         return fileRoute
     
-    def verifyFileExists(self, fileName):
-        fileRoute=self.getFileRoute(fileName)
-        if not fileRoute:
-            return False
-        return os.path.exists(fileRoute)
-    
     def getFileSize(self, fileName):
         fileRoute = self.getFileRoute(fileName)
         if not fileRoute:
@@ -287,6 +281,8 @@ class AVLTree:
         fileSize=self.getFileSize(key)
         if not fileSize:
             return None
+        if self.search(root, key):
+            return root
         return self.insertNode(root, key, fileType, fileSize)
     
     def insertNode(self, root, key, fileType, fileSize):
@@ -429,6 +425,7 @@ if __name__ == "__main__":
     myTree = AVLTree()
     root = None
 
+    root = myTree.insert(root, "rider-1")
     root = myTree.insert(root, "rider-1")
     root = myTree.insert(root, "horse-1")
     root = myTree.insert(root, "0001")
