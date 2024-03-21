@@ -162,9 +162,6 @@ def Tabs():
                 text="Level order traversal"
                 
             ),
-            ft.Tab(
-                content=ft.Text("This is Tab 6"), icon=ft.icons.CONTENT_PASTE_SEARCH
-            ),
         ],
         expand=1,)
     return t

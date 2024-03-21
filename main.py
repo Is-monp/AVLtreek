@@ -10,12 +10,14 @@ def tree_display(image_path:str):
             height=650,
             fit=ft.ImageFit.COVER,
             repeat=ft.ImageRepeat.NO_REPEAT,
+            border_radius=ft.border_radius.all(10)
         ),
         margin=5,
-        padding=10,
+        padding=0,
         alignment=ft.alignment.center,
         width=800,
-        height=650        
+        height=650, 
+        border_radius=ft.border_radius.all(10),       
     ) 
     return main_display      
     
