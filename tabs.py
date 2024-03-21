@@ -1,12 +1,25 @@
 import flet as ft
-
+from avl import AVLTree
+from visuals import tree_display
+global myTree
+myTree=AVLTree()
+global root
+root=None
+def addNode(key):
+    global root
+    global myTree
+    root= myTree.insert(root, key)
+    myTree.printLevelOrder(root)
 #funciones de estado.
 async def button_clicked_byfilter(e):
-    t.value = f"Se ha filtrado por: {color_dropdown.value}"
+    minValue=get_startrange()
+    maxValue=get_endrange()
+    typo=get_filter()
+    t= myTree.getInfos(minValue,maxValue,typo)
     await t.update_async()
     
 async def button_clicked_bysort(e):
-    y.value = f"Se ha sorteado por niveles:"
+    y.value =myTree.getLevelOrder(root)
     await y.update_async()
     
 async def button_clicked_bysearch(e):
@@ -17,8 +30,19 @@ async def button_clicked_bydelete(e):
         nodo_eliminar.value = f"El nodo eliminar es: {field_delete.value}"
         await nodo_eliminar.update_async()
 async def button_clicked_byadd(e):
-        nodo_añadir.value = f"El nodo añadir es: {field_add.value}"
+        nodo_añadir.value = field_add.value
+        addNode(field_add.value)
+        new_route=myTree.outputTree(root)
+        tree_display(new_route)
         await nodo_añadir.update_async()
+        
+def button_clickedbyview(e):
+    #generar vista del arbol
+    pass
+def button_clicked_table(e):
+    #gebenerar tabla con contenido del filtro
+    pass
+
     #slider
 def slider_change_start(e):
     print(
@@ -58,7 +82,8 @@ def search_node():
     leyenda=ft.Text("Use el nombre del nodo para buscarlo.")
     field_search= ft.TextField(width=250, height=55,hint_text="¿Que nodo desea buscar?", border_radius=20,border_color=ft.colors.GREEN_400,)
     submit_buton= ft.ElevatedButton(text="Submit", on_click=button_clicked_bysearch,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
-    return ft.Column(controls=[leyenda, field_search,submit_buton, nodo_buscado])
+    Ver_tabla= ft.ElevatedButton(text="Ver contenido", on_click=button_clicked_table,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
+    return ft.Column(controls=[leyenda, field_search,submit_buton, Ver_tabla, nodo_buscado])
 
 def filter():
     global t, color_dropdown, range_slider
@@ -67,7 +92,7 @@ def filter():
     leyenda2=ft.Text("Seleccione un rango para filtrar por size")
     range_slider = ft.RangeSlider(
         min=0,
-        max=5000,
+        max=1000000,
         start_value=10,
         divisions=10,
         end_value=20,
@@ -77,6 +102,7 @@ def filter():
         label="{value}"
     )
     submitt_button = ft.FilledButton(text="Submit", on_click=button_clicked_byfilter,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
+    Ver_tabla= ft.ElevatedButton(text="Ver contenido", on_click=button_clicked_table,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
     color_dropdown = ft.Dropdown(
         width=250,
         border_color=ft.colors.GREEN_400,
@@ -94,7 +120,7 @@ def filter():
         ]
     
     )
-    return ft.Column(controls=[leyenda,color_dropdown,leyenda2,range_slider,submitt_button, t])
+    return ft.Column(controls=[leyenda,color_dropdown,leyenda2,range_slider,submitt_button,Ver_tabla, t])
 
 def level_order():
     global y
@@ -102,6 +128,11 @@ def level_order():
     leyenda=ft.Text("Al clickear 'sort' se generara un recorrido\npor niveles del arbol actual.")
     submitt_button = ft.FilledButton(text="Sort", on_click=button_clicked_bysort,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
     return ft.Column(controls=[leyenda,submitt_button, y])
+
+def Visualize():
+    leyenda=ft.Text("Al clickear 'View' se generara\n una vista del arbol actual.")
+    submitt_button = ft.FilledButton(text="Sort", on_click=button_clickedbyview,style=ft.ButtonStyle(color={ft.MaterialState.DEFAULT: ft.colors.BLACK},bgcolor={ft.MaterialState.DEFAULT: ft.colors.GREEN_400}))
+    return ft.Column(controls=[leyenda,submitt_button])
 
 #info
 def get_Nodoabuscar():
@@ -163,7 +194,11 @@ def Tabs():
                 text="Level order traversal"
                 
             ),
+            ft.Tab(
+                content=ft.Container(
+                    content=Visualize(), alignment=ft.alignment.center,padding=ft.padding.only(top=90)),
+                icon=ft.icons.CONTENT_PASTE_SEARCH, text="Visualize tree",
+            ),
         ],
         expand=1,)
     return t
-

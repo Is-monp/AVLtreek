@@ -29,3 +29,22 @@ def images_slider(route_list, images):
                 border_radius=ft.border_radius.all(10),
             )
         )
+
+def tree_display(image_path:str):
+    main_display=ft.Container(
+        content=ft.Image(
+            src=image_path,
+            width=800,
+            height=650,
+            fit=ft.ImageFit.COVER,
+            repeat=ft.ImageRepeat.NO_REPEAT,
+            border_radius=ft.border_radius.all(10)
+        ),
+        margin=5,
+        padding=0,
+        alignment=ft.alignment.center,
+        width=800,
+        height=650, 
+        border_radius=ft.border_radius.all(10),       
+    ) 
+    return main_display
