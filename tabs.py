@@ -26,12 +26,15 @@ def exportTable(table):
 
 #funciones de estado.
 async def button_clicked_byfilter(e):
-    minValue=get_startrange()
-    maxValue=get_endrange()
-    typo=get_filter()
-    exportTable(createTable(myTree.getInfos(root, minValue, maxValue, typo)))
-    t=ft.Text()
+    global t
+    t.value = f"El filtro es: {color_dropdown.value} y el rango es: {range_slider.start_value} - {range_slider.end_value}"
     await t.update_async()
+    print(int(float(range_slider.start_value)), int(float(range_slider.end_value)))
+    filtered_tree=myTree.getInfos(root, color_dropdown.value, int(float(range_slider.start_value)), int(float(range_slider.end_value)))
+    print(filtered_tree)
+    table=createTable(filtered_tree)
+    exportTable(table)
+
     
 async def button_clicked_bysort(e):
     y.value =myTree.getLevelOrder(root)
@@ -50,8 +53,9 @@ async def button_clicked_bysearch(e):
         await nodo_buscado.update_async()
         
 async def button_clicked_bydelete(e):
-        nodo_eliminar.value = f"El nodo eliminar es: {field_delete.value}"
+        nodo_eliminar.value =myTree.delete(root, field_delete.value)
         await nodo_eliminar.update_async()
+        
 async def button_clicked_byadd(e):
         nodo_añadir.value = field_add.value
         addNode(field_add.value)
@@ -117,10 +121,10 @@ def filter():
     leyenda2=ft.Text("Seleccione un rango para filtrar por size")
     range_slider = ft.RangeSlider(
         min=0,
-        max=1000000,
-        start_value=10,
-        divisions=10,
-        end_value=20,
+        max=10000000,
+        start_value=0,
+        divisions=10000,
+        end_value=1000000,
         inactive_color=ft.colors.GREEN_300,
         active_color=ft.colors.GREEN_700,
         overlay_color=ft.colors.GREEN_100,
@@ -135,13 +139,13 @@ def filter():
         border_radius=20,
         hint_text="Selecciona el type de nodo.",
         options=[
-            ft.dropdown.Option("Bike"),   
-            ft.dropdown.Option("Car"),
-            ft.dropdown.Option("Cat"),
-            ft.dropdown.Option("Dogs"),
-            ft.dropdown.Option("Flowers"),
-            ft.dropdown.Option("Horses"),
-            ft.dropdown.Option("Human"),
+            ft.dropdown.Option("bike"),   
+            ft.dropdown.Option("cars"),
+            ft.dropdown.Option("cats"),
+            ft.dropdown.Option("dogs"),
+            ft.dropdown.Option("flowers"),
+            ft.dropdown.Option("horses"),
+            ft.dropdown.Option("human"),
         ]
     
     )

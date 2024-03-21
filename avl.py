@@ -270,6 +270,9 @@ class AVLTree:
             return None
         return os.path.getsize(fileRoute)
     
+    def getType(self, fileName):
+        return self.verifyFileName(fileName)
+    
     # Using the above functions insert a node, verify first if 
     # the file exists and if it does, then insert the node
     # with the size and type included, use the key
@@ -277,10 +280,10 @@ class AVLTree:
     def insert(self, root, key):
         fileType=self.verifyFileName(key)
         if not fileType:
-            return None
+            return root
         fileSize=self.getFileSize(key)
         if not fileSize:
-            return None
+            return root
         if self.search(root, key):
             return root
         return self.insertNode(root, key, fileType, fileSize)
@@ -347,13 +350,18 @@ class AVLTree:
     # A function that gets the level of a node
     def getLevel(self, root, key):
         if not root:
-            return None
-        if root.key==key:
+            return -1
+        if root.key == key:
             return 0
         if key < root.key:
-            return 1 + self.getLevel(root.left, key)
-        return 1 + self.getLevel(root.right, key)
-    
+            left_level = self.getLevel(root.left, key)
+            if left_level != -1:
+                return 1 + left_level
+        else:
+            right_level = self.getLevel(root.right, key)
+            if right_level != -1:
+                return 1 + right_level
+        return -1  # Return -1 if the key is not found
     # A function named getRelatives that returns the father, grandfather and uncle of a given node
     def getRelatives(self, root, key):
         father=self.getFather(root, key)
@@ -385,7 +393,7 @@ class AVLTree:
         if not root:
             return []
         nodes=[]
-        if root.fileType==fileType and minSize<=root.fileSize<=maxSize:
+        if self.getType(root.key)==fileType and minSize<=root.fileSize<=maxSize:
             nodes.append(root)
         nodes+=self.filter(root.left, fileType, minSize, maxSize)
         nodes+=self.filter(root.right, fileType, minSize, maxSize)
@@ -425,20 +433,23 @@ if __name__ == "__main__":
     myTree = AVLTree()
     root = None
 
-    root = myTree.insert(root, "rider-1")
-    root = myTree.insert(root, "rider-1")
-    root = myTree.insert(root, "horse-1")
-    root = myTree.insert(root, "0001")
-    root = myTree.insert(root, "dog.1")
+    # root = myTree.insert(root, "rider-1")
+    # root = myTree.insert(root, "rider-1")
+    # root = myTree.insert(root, "horse-1")
+    # root = myTree.insert(root, "0001")
+    # root = myTree.insert(root, "dog.1")
     root = myTree.insert(root, "cat.1")
-    root = myTree.insert(root, "carsgraz_001")
-    root = myTree.insert(root, "bike_001")
-    root = myTree.insert(root, "0002")
-    root = myTree.insert(root, "bike_002")
+    # root = myTree.insert(root, "carsgraz_001")
+    # root = myTree.insert(root, "bike_001")
+    # root = myTree.insert(root, "0002")
+    # root = myTree.insert(root, "bike_002")
     root = myTree.insert(root, "cat.2")
 
-    print("Level order traversal of the constructed AVL tree is")
-    print(myTree.printLevelOrder(root))
-    print()
-    root = myTree.delete(root, "cat.1")
-    print(myTree.printLevelOrder(root))
+    # print("Level order traversal of the constructed AVL tree is")
+    # print(myTree.printLevelOrder(root))
+    # print()
+    # root = myTree.delete(root, "cat.1")
+    # print(myTree.printLevelOrder(root))
+    # # Filter
+    print(myTree.getInfos(root, "cats", 0, 10000000))
+
