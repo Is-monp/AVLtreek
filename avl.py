@@ -178,58 +178,50 @@ class AVLTree:
             current = current.right
         return current
     
-    # A function that deletes a node with a given key from the AVL tree
     def delete(self, root, key):
         if not root:
             return root
-        
-        # Buscar la clave en el subárbol izquierdo
+
         if key < root.key:
             root.left = self.delete(root.left, key)
-        
-        # Buscar la clave en el subárbol derecho
         elif key > root.key:
             root.right = self.delete(root.right, key)
-        
-        # Si se encuentra la clave
         else:
-            # Caso 1: El nodo tiene 0 o 1 hijo
-            if not root.left or not root.right:
-                temp = root.left if root.left else root.right
-                if not temp:
-                    temp = root
-                    root = None
-                else:
-                    root = temp
-            
-            # Caso 2: El nodo tiene 2 hijos
-            else:
-                temp = self.maxValueNode(root.left)  # Encontrar el mayor del subárbol izquierdo
-                root.key = temp.key
-                root.left = self.delete(root.left, temp.key)
-        
-        # Si el nodo se eliminó, o no había nada que eliminar, se devuelve el nodo
-        if not root:
+            if root.left is None:
+                temp = root.right
+                root = None
+                return temp
+            elif root.right is None:
+                temp = root.left
+                root = None
+                return temp
+
+            temp = self.minValueNode(root.right)
+            root.key = temp.key
+            root.fileType = temp.fileType
+            root.fileSize = temp.fileSize
+            root.right = self.delete(root.right, temp.key)
+
+        if root is None:
             return root
-        
-        # Recalcular la altura del nodo actual
+
         root.height = 1 + max(self.getHeight(root.left), self.getHeight(root.right))
-        
-        # Calcular el balance del árbol
         balance = self.getBalance(root)
-        
-        # Restaurar el equilibrio del árbol si es necesario
+
         if balance > 1:
             if self.getBalance(root.left) >= 0:
                 return self.rightRotate(root)
             else:
-                return self.doubleRotateLeft(root)
+                root.left = self.leftRotate(root.left)
+                return self.rightRotate(root)
+
         if balance < -1:
             if self.getBalance(root.right) <= 0:
                 return self.leftRotate(root)
             else:
-                return self.doubleRotateRight(root)
-        
+                root.right = self.rightRotate(root.right)
+                return self.leftRotate(root)
+
         return root
     
     def verifyFileName(self, fileName):
@@ -433,23 +425,22 @@ if __name__ == "__main__":
     myTree = AVLTree()
     root = None
 
-    # root = myTree.insert(root, "rider-1")
-    # root = myTree.insert(root, "rider-1")
-    # root = myTree.insert(root, "horse-1")
-    # root = myTree.insert(root, "0001")
-    # root = myTree.insert(root, "dog.1")
+    root = myTree.insert(root, "rider-1")
+    root = myTree.insert(root, "rider-1")
+    root = myTree.insert(root, "horse-1")
+    root = myTree.insert(root, "0001")
+    root = myTree.insert(root, "dog.1")
     root = myTree.insert(root, "cat.1")
-    # root = myTree.insert(root, "carsgraz_001")
-    # root = myTree.insert(root, "bike_001")
-    # root = myTree.insert(root, "0002")
-    # root = myTree.insert(root, "bike_002")
+    root = myTree.insert(root, "carsgraz_001")
+    root = myTree.insert(root, "bike_001")
+    root = myTree.insert(root, "0002")
+    root = myTree.insert(root, "bike_002")
     root = myTree.insert(root, "cat.2")
 
-    # print("Level order traversal of the constructed AVL tree is")
-    # print(myTree.printLevelOrder(root))
-    # print()
-    # root = myTree.delete(root, "cat.1")
-    # print(myTree.printLevelOrder(root))
-    # # Filter
+    print("Level order traversal of the constructed AVL tree is")
+    print(myTree.printLevelOrder(root))
+    print()
+    root = myTree.delete(root, "cat.1")
+    print(myTree.printLevelOrder(root))
+    # Filter
     print(myTree.getInfos(root, "cats", 0, 10000000))
-

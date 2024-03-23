@@ -54,6 +54,8 @@ async def button_clicked_bysearch(e):
         
 async def button_clicked_bydelete(e):
         nodo_eliminar.value =myTree.delete(root, field_delete.value)
+        new_route=myTree.outputTree(root)
+        tree_display(new_route)
         await nodo_eliminar.update_async()
         
 async def button_clicked_byadd(e):
