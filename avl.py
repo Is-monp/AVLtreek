@@ -65,7 +65,6 @@ class AVLTree:
 
         y.height = 1 + max(self.getHeight(y.left), self.getHeight(y.right))
         x.height = 1 + max(self.getHeight(x.left), self.getHeight(x.right))
-
         return x
 
     def leftRotate(self, x):
@@ -374,7 +373,7 @@ class AVLTree:
     def getInfo(self, root, node):
         key=node.key
         level=self.getLevel(root, key)
-        balance=self.getBalance(self.search(root, key))
+        balance=self.getBalance(self.search(root, key))*-1
         father, grandFather, uncle=self.getRelatives(root, key)
         return [key, level, balance, father, grandFather, uncle]
     

@@ -53,7 +53,10 @@ async def button_clicked_bysearch(e):
         await nodo_buscado.update_async()
         
 async def button_clicked_bydelete(e):
+        global root
+        global myTree
         nodo_eliminar.value =myTree.delete(root, field_delete.value)
+        root=nodo_eliminar.value
         new_route=myTree.outputTree(root)
         tree_display(new_route)
         await nodo_eliminar.update_async()
@@ -67,11 +70,11 @@ async def button_clicked_byadd(e):
         
 def button_clickedbyview(e):
     # Open ./output.png
-    os.system("open ./output.png")
+    os.system("output.png")
     pass
 def button_clicked_table(e):
     # Open ./table.txt
-    os.system("open ./table.txt")
+    os.system("table.txt")
     pass
 
     #slider
